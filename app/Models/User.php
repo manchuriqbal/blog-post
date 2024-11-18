@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'first_name',
+        'last_name',
+        'phone',
+        'avatar',
+        'role_id',
     ];
 
     /**
@@ -44,5 +49,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role(){
+        return $this->belongsTo(\App\Models\Role::class, 'role_id');
+    }
+
+    public function posts(){
+        return $this->belongsToMany(\App\Models\Post::class, 'favorite_post');
     }
 }
