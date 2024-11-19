@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
 use App\Models\PostView;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -62,6 +61,12 @@ class DatabaseSeeder extends Seeder
             Post::factory()->count(50)->create();
             PostView::factory()->count(500)->create();
             Comment::factory()->count(20)->create();
+
+            $this->call([
+                CategoryPostSeeder::class,
+                PostTagSeeder::class,
+                FavoritePostSeeder::class,
+            ]);
 
         }
         else{
