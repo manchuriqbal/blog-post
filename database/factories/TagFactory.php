@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,10 @@ class TagFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->word();
         return [
-            //
+           'name' => $title,
+           'slug' => Str::slug($title . '-' . fake()->unique()->numberBetween(1, 10000)),
         ];
     }
 }

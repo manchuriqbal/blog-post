@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,14 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->word();
         return [
-            //
+            'name' => $title,
+            'slug' => Str::slug($title . '-' . fake()->unique()->numberBetween(1, 10000)),
+            'thumbnail' => fake()->imageUrl(),
+            'active' => true,
+            'parent_id' => Category::query()->inRandomOrder()->value('id') ?: null,
+
         ];
     }
 }

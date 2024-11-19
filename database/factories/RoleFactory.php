@@ -18,7 +18,6 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            'role' => Role::inRandomOrder()->first()->id,
         ];
     }
 }
