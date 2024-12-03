@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Category extends Model
 {
@@ -29,5 +30,19 @@ class Category extends Model
 
     public function posts(){
         return $this->belongsToMany(\App\Models\Post::class, 'category_post');
+    }
+
+    public function getThumbnail(){
+        if ($this->thumbnail == null) {
+            return 'https://via.placeholder.com/100x100';
+        }
+
+
+        if (filter_var($this->thumbnail, FILTER_VALIDATE_URL)) {
+            return $this->thumbnail;
+        }
+
+        return Storage::url($this->thumbnail);
+
     }
 }

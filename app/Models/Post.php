@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
@@ -38,5 +39,19 @@ class Post extends Model
 
     public function users(){
         return $this->belongsToMany(\App\Models\User::class, 'favorite_post');
+    }
+
+    public function getThumbnail(){
+        if ($this->thumbnail == null) {
+            return 'https://via.placeholder.com/100x100';
+        }
+
+
+        if (filter_var($this->thumbnail, FILTER_VALIDATE_URL)) {
+            return $this->thumbnail;
+        }
+
+        return Storage::url($this->thumbnail);
+
     }
 }

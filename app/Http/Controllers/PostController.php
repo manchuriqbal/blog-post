@@ -13,7 +13,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.view_posts')->with([
+           'posts' => Post::orderBy('created_at', 'desc')->paginate(10),
+        ]);
     }
 
     /**
@@ -37,7 +39,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.details_post')->with([
+            'post' => $post,
+        ]);
     }
 
     /**

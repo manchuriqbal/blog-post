@@ -58,4 +58,12 @@ class User extends Authenticatable
     public function posts(){
         return $this->belongsToMany(\App\Models\Post::class, 'favorite_post');
     }
+
+    public function avatar(){
+        return asset($this->avatar ?? 'adminsite/img/avatar-6.jpg');
+    }
+
+    public function fullName(){
+        return $this->first_name .' '. $this->last_name;
+    }
 }

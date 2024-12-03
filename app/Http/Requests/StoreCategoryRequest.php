@@ -11,7 +11,17 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        // Generate the slug from the name if it exists
+        if ($this->name) {
+            $this->merge([
+                'slug' => (string) str($this->name)->slug(),
+            ]);
+        }
     }
 
     /**
@@ -22,7 +32,33 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                'string',
+                'max:250',
+                'unique:categories,name'
+            ],
+            'slug' => [
+                'required',
+                'string',
+                'max:250',
+                'unique:categories,slug'
+            ],
+            'thumbnail' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048'
+            ],
+            'parent_id' => [
+                'nullable',
+                'integer',
+                'exists:categories,id'
+            ],
+            'active' => [
+                'boolean'
+            ]
         ];
+
     }
 }
