@@ -22,19 +22,20 @@
             </div>
 
             <!-- Posts Count in This Category -->
-            <p><strong>Number of Posts in this Category:</strong> count</p> <!-- Replace `category.posts_count` with the actual number -->
+            <p><strong>Number of Posts in this Category:</strong> {{$category->posts->count()}} </p> <!-- Replace `category.posts_count` with the actual number -->
 
             <!-- Posts List -->
             <div class="category-posts">
                 <h2>Posts in This Category</h2>
 
+                @foreach ($category->posts as $post)
+
                 <ul>
                     <!-- Loop through the posts for this category -->
-                    <li><a href=""> post.title </a></li> <!-- Replace with dynamic post titles and links -->
-                    <li><a href=""> post.title </a></li>
-                    <li><a href=""> post.title </a></li>
+                    <li><a href="{{route('posts.show', $post->id)}}"> {{$post->title}}</a></li>
                     <!-- End of loop -->
                 </ul>
+                @endforeach
             </div>
         </div>
     </main>

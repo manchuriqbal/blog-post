@@ -12,14 +12,16 @@
     <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
         <li class="{{request()->routeIs('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}"> <i class="icon-home"></i>Home </a></li>
-        @if (auth()->check() && auth()->user()->role_id == '1')
-            <li class="{{request()->routeIs('category.index') ? 'active' : ''}}"><a href="{{route('category.index')}}"> <i class="icon-grid"></i>Categories </a></li>
-        @endif
-
-        <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Posts</a>
-            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="{{route('posts.index')}}">View Posts</a></li>
-                <li><a href="">Add Post</a></li>
+        <li class="{{request()->routeIs('categories.*') ? 'active' : ''}}"><a href="#categorydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>Categories</a>
+            <ul id="categorydropdownDropdown" class="collapse list-unstyled ">
+                <li><a  href="{{route('categories.index')}}">View Categories</a></li>
+                <li><a href="{{route('categories.create')}}">Add Category</a></li>
+            </ul>
+        </li>
+        <li class="{{request()->routeIs('posts.*') ? 'active' : ''}}"><a href="#postdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Posts</a>
+            <ul id="postdropdownDropdown" class="collapse list-unstyled ">
+                <li><a  href="{{route('posts.index')}}">View Posts</a></li>
+                <li><a href="{{route('posts.create')}}">Add Post</a></li>
             </ul>
         </li>
         <li><a href=""> <i class="icon-grid"></i>Orders </a></li>

@@ -73,8 +73,9 @@
                     <th class="table_head" scope="col">Title</th>
                     <th class="table_head" scope="col">Post</th>
                     <th class="table_head" scope="col">Author</th>
-                    <th class="table_head">Status</th>
                     <th class="table_head">Category</th>
+                    <th class="table_head">Tags</th>
+                    <th class="table_head">Status</th>
                     <th class="table_head">Action</th>
                   </tr>
                 </thead>
@@ -89,21 +90,32 @@
                       <td class="title">{{ substr($post->title, 0, 20) }}...</td>
                       <td>{{ substr($post->content, 0, 120) }}...</td>
                         <td>{{$post->author->fullName()}}</td>
-                        @if ($post->status == 'published')
-                        <td class="text-success">{{$post->status}}</td>
-                        @elseif ($post->status == 'draft')
-                        <td class="text-warning">{{$post->status}}</td>
-                        @else
-                        <td class="text-danger">{{$post->status}}</td>
 
-                        @endif
                         <td>
-                            @forelse ($post->categories as $category)
-                                {{ $category->name }}
-                            @empty
+                            @if ($post->categories->isNotEmpty())
+                                {{ $post->categories->pluck('name')->implode(', ') }}
+                            @else
                                 No categories
-                            @endforelse
+                            @endif
                         </td>
+
+
+                        <td>
+                            @if ($post->tags->isNotEmpty())
+                                {{ $post->tags->pluck('name')->implode(', ') }}
+                            @else
+                                No tags
+                            @endif
+                        </td>
+
+                        @if ($post->status == 'published')
+                            <td class="text-success">Published</td>
+                        @elseif ($post->status == 'draft')
+                            <td class="text-warning">Draft</td>
+                        @elseif ($post->status == 'archived')
+                            <td class="text-danger">Archived</td>
+                        @endif
+
                         <td class="d-flex justify-content-center align-items-center">
                             <a class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" href="{{route('posts.show', $post->id)}}">
                                 <i class="fa fa-eye"></i> View

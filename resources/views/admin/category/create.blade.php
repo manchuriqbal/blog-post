@@ -17,7 +17,7 @@
                             {{-- <h3>Edit Profile</h3> --}}
                         </div>
                         <div class="card-body">
-                            <form action="{{route('category.store')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 @if ($errors->any())
@@ -29,15 +29,6 @@
                                         </ul>
                                     </div>
                                 @endif
-
-                                <!-- Thumbnail -->
-                                <div class="form-group">
-                                    <label for="thumbnail">Thumbnail</label>
-                                    <input type="file" class="form-control" name="thumbnail" id="thumbnail">
-                                    @error('thumbnail')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
 
                                 <!-- Category Name -->
                                 <div class="form-group">
@@ -65,14 +56,21 @@
                                     @enderror
                                 </div>
 
-
+                                <!-- Thumbnail -->
+                                <div class="form-group">
+                                    <label for="thumbnail">Thumbnail</label>
+                                    <input type="file" class="form-control" name="thumbnail" id="thumbnail">
+                                    @error('thumbnail')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
 
                                 <!-- Submit Button -->
                                 <div class="form-group text-center">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-save"></i> Create
                                     </button>
-                                    <a href="{{ route('admin.profile.view') }}" class="btn btn-secondary">
+                                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">
                                         <i class="fa fa-arrow-left"></i> Cancel
                                     </a>
                                 </div>

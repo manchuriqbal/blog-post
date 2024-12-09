@@ -15,7 +15,7 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <form action="{{route('category.update', $category->id)}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('categories.update', $category->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('patch')
 
@@ -29,7 +29,7 @@
                                     </div>
                                 @endif
 
-                                <!-- Profile Picture -->
+                                <!-- thumbnail Picture -->
                             <div class="form-group text-center">
                                 <label for="avatar">Thumbnail</label>
                                 <div class="mb-3">
@@ -40,14 +40,6 @@
                                 </div>
                             </div>
 
-                                <!-- Thumbnail -->
-                                <div class="form-group">
-                                    <label for="thumbnail">Thumbnail</label>
-                                    <input type="file" class="form-control" name="thumbnail" id="thumbnail">
-                                    @error('thumbnail')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
 
                                 <!-- Category Name -->
                                 <div class="form-group">
@@ -75,7 +67,14 @@
                                     @enderror
                                 </div>
 
-
+                                 <!-- Thumbnail -->
+                                 <div class="form-group">
+                                    <label for="thumbnail">Thumbnail</label>
+                                    <input type="file" class="form-control" name="thumbnail" id="thumbnail">
+                                    @error('thumbnail')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
 
                                  <!-- Pranet Category -->
                                  <div class="form-group">
@@ -97,7 +96,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-save"></i> Update
                                     </button>
-                                    <a href="{{ route('admin.profile.view') }}" class="btn btn-secondary">
+                                    <a href="{{ route('categories.index') }}" class="btn btn-secondary">
                                         <i class="fa fa-arrow-left"></i> Cancel
                                     </a>
                                 </div>

@@ -59,6 +59,10 @@ class User extends Authenticatable
         return $this->belongsToMany(\App\Models\Post::class, 'favorite_post');
     }
 
+    public function comment(){
+        return $this->hasMany(\App\Models\Comment::class, 'comment_id');
+    }
+
     public function avatar(){
         return asset($this->avatar ?? 'adminsite/img/avatar-6.jpg');
     }
@@ -66,4 +70,11 @@ class User extends Authenticatable
     public function fullName(){
         return $this->first_name .' '. $this->last_name;
     }
+
+    public function scopeAuthors($query)
+    {
+        return $query->whereIn('role_id', [1, 2]);
+    }
+
+
 }

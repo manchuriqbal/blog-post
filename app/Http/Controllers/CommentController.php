@@ -29,7 +29,26 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        // validated data
+        $validationData = $request->validated();
+
+        // create comment
+        $comment = Comment::create([
+            'comment' => $validationData['comment'],
+            'post_id' => $validationData['post_id'],
+            'user_id' => auth()->id(),
+            'comment_id' => $validationData['comment_id'] ?? null,
+        ]);
+
+        // dd($validationData);
+
+        // redirect page
+        if ($comment) {
+            return redirect()->back()->with('success', 'Comment added successfully!');
+        }
+        else {
+            return redirect()->back()->with('error', 'Failed to add comment. Please try again!');
+        }
     }
 
     /**

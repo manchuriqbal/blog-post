@@ -11,15 +11,8 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'author_id',
-        'content',
-        'thumbnail',
-        'published_at',
-        'status',
-    ];
+    protected $fillable = ['title', 'content', 'author_id', 'thumbnail', 'slug'];
+
 
     public function author(){
         return $this->belongsTo(\App\Models\User::class, 'author_id');
@@ -27,6 +20,9 @@ class Post extends Model
 
     public function postViews(){
         return $this->hasMany(\App\Models\PostView::class, 'post_id');
+    }
+    public function comment(){
+        return $this->hasMany(\App\Models\Comment::class, 'post_id');
     }
 
     public function categories(){
@@ -53,5 +49,14 @@ class Post extends Model
 
         return Storage::url($this->thumbnail);
 
+    }
+
+    protected static function booted()
+    {
+        static::saving(function ($post) {
+            if ($post->status == 'published' && !$post->published_at) {
+                $post->published_at = now();
+            }
+        });
     }
 }

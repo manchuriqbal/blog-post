@@ -7,6 +7,9 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href=" {{asset('adminsite/vendor/bootstrap/css/bootstrap.min.css')}}">
     <!-- Font Awesome CSS-->
@@ -23,6 +26,20 @@
     <link rel="shortcut icon" href=" {{asset('adminsite/img/favicon.ico')}}">
 
     @yield('page-css')
+
+    <style>
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -33,11 +50,28 @@
   <body>
     @include('admin.partial.header')
     <div class="d-flex align-items-stretch">
+
       <!-- Sidebar Navigation-->
         @include('admin.partial.sidebar')
       <!-- Sidebar Navigation end-->
+
       <div class="page-content">
         <div class="page-header">
+
+            <div>
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+
           <div class="container-fluid">
             <h2 class="h5 no-margin-bottom"> @yield('page_name')</h2>
           </div>
@@ -53,6 +87,18 @@
 </div>
 </div>
 <!-- JavaScript files-->
+
+@yield('javascript')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+    });
+</script>
 <script src=" {{asset('adminsite/vendor/jquery.cookie/jquery.cookie.js')}}"> </script>
 <script src=" {{asset('adminsite/vendor/jquery/jquery.min.js')}}"></script>
 <script src=" {{asset('adminsite/vendor/jquery-validation/jquery.validate.min.js')}}"></script>

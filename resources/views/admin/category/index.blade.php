@@ -3,7 +3,7 @@
 @section('title', 'Category')
 
 @section('page_name')
-<a class="btn btn-info" href="{{route('category.create')}}">Add Category</a>
+<a class="btn btn-info" href="{{route('categories.create')}}">Add Category</a>
 @endsection
 
 @section('content')
@@ -42,21 +42,22 @@
                             </td>
 
                             <td>{{($category->active) == '0' ? "Inactive" : 'Active'}}</td>
-                            <td class="d-flex align-items-center">
-                                <a class="btn btn-info btn-sm mr-2" href="{{ route('category.edit', $category->id) }}">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <form action="{{ route('category.delete', $category->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
-
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <a class="btn btn-info btn-sm mr-2" href="{{ route('categories.edit', $category->id) }}">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <form action="{{ route('categories.destroy', $category->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
-                            <td class="d-flex justify-content-center align-items-center">
-                                <a class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" href="{{route('category.view', $category->id)}}">
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" href="{{route('categories.show', $category->id)}}">
                                     <i class="fa fa-eye"></i> View
                                 </a>
                             </td>
