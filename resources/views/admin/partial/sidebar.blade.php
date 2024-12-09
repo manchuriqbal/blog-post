@@ -1,6 +1,6 @@
 <nav id="sidebar">
     <!-- Sidebar Header-->
-    <a href="{{route('admin.profile.view')}}">
+    <a href="{{route('profile.view')}}">
         <div class="sidebar-header d-flex align-items-center">
           <div class="avatar"><img src="{{ auth()->user()->getAvatar()}}" alt="..." class="img-fluid rounded-circle"></div>
           <div class="title">
@@ -36,4 +36,11 @@
         @endif
 
     </ul>
+
+    <div class="user-site-button">
+        <a href="{{route('dashboard.index')}}" class="btn btn-primary w-100">
+            <i class="icon-user-1"></i> User Site
+        </a>
+    </div>
+
   </nav>

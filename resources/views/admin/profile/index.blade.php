@@ -40,9 +40,12 @@
                         </ul>
                     </div>
                     <!-- Edit Button -->
-                    <div class="card-footer text-center">
-                        <a href=" {{route('admin.profile.edit')}} " class="btn btn-primary">
+                    <div class="form-group text-center">
+                        <a href=" {{route('profile.edit')}} " class="btn btn-secondary">
                             <i class="fa fa-edit"></i> Edit Profile
+                        </a>
+                        <a href="{{route('profile.password_change')}}" class="btn btn-primary">
+                            <i class="fas fa-lock"></i> Password Change
                         </a>
                     </div>
                 </div>

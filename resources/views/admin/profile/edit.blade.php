@@ -15,7 +15,7 @@
                         <h3>Edit Profile</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('admin.profile.update')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <!-- Profile Picture -->
@@ -83,27 +83,12 @@
                                 @enderror
                             </div>
 
-                            {{-- User Role --}}
-                            <div class="form-group">
-                                <label for="role">User Role</label>
-                                <select name="role" id="role" class="form-control">
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}" {{ $user->role->id == $role->id ? 'selected' : '' }}>
-                                            {{ $role->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('role')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
                             <!-- Submit Button -->
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-save"></i> Save Changes
                                 </button>
-                                <a href="{{ route('admin.profile.view') }}" class="btn btn-secondary">
+                                <a href="{{ route('profile.view') }}" class="btn btn-secondary">
                                     <i class="fa fa-arrow-left"></i> Cancel
                                 </a>
                             </div>

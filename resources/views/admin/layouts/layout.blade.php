@@ -39,6 +39,31 @@
             background-color: #f8d7da;
             border-color: #f5c6cb;
         }
+        #sidebar {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        #sidebar .user-site-button {
+            margin-top: auto; /* Pushes the button to the bottom */
+            padding: 10px; /* Adds some spacing around the button */
+        }
+
+        #sidebar .user-site-button .btn {
+            font-size: 14px;  /* Adjust the font size */
+            padding: 10px;  /* Control padding around the button */
+            color: #fff;  /* Ensure text color is white */
+            background-color: #007bff;  /* Background color for button */
+            border-radius: 5px;  /* Rounded corners for the button */
+            text-align: center;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);  /* Add shadow for depth */
+        }
+
+        #sidebar .user-site-button .btn:hover {
+            background-color: #0056b3; /* Change color on hover */
+        }
+
     </style>
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
