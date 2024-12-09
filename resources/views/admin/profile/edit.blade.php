@@ -22,7 +22,7 @@
                             <div class="form-group text-center">
                                 <label for="avatar">Profile Picture</label>
                                 <div class="mb-3">
-                                    <img src="{{ asset($user->avatar ?? 'adminsite/img/default-avatar.png') }}"
+                                    <img src="{{ $user->getAvatar() }}"
                                          alt="Admin Avatar"
                                          class="img-fluid rounded-circle mb-2"
                                          style="width: 120px; height: 120px;">
@@ -83,10 +83,11 @@
                                 @enderror
                             </div>
 
+                            {{-- User Role --}}
                             <div class="form-group">
                                 <label for="role">User Role</label>
                                 <select name="role" id="role" class="form-control">
-                                    @foreach ($roles as $role) <!-- Assuming $roles is passed to the view containing all roles -->
+                                    @foreach ($roles as $role)
                                         <option value="{{ $role->id }}" {{ $user->role->id == $role->id ? 'selected' : '' }}>
                                             {{ $role->name }}
                                         </option>
@@ -96,9 +97,6 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-
-
 
                             <!-- Submit Button -->
                             <div class="form-group text-center">

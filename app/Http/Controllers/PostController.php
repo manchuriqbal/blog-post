@@ -16,8 +16,14 @@ class PostController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $postQuery = Post::with('comment.children')->latest();
+        if ($user->role->id !== 1) {
+            $postQuery->where('author_id', $user->id);
+        }
+
         return view('admin.post.index')->with([
-           'posts' => Post::with('comment.children')->latest()->paginate(10),
+           'posts' => $postQuery->paginate(10),
         ]);
     }
 

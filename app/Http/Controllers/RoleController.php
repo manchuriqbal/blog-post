@@ -13,7 +13,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.role.index')->with([
+            'roles' => Role::all(),
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.role.create');
     }
 
     /**

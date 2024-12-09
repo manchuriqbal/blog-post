@@ -25,6 +25,12 @@ Route::middleware('auth', 'verified', 'admin_auth')
 
     Route::post('/posts/{comment?}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
 
+    Route::get('/users', [\App\Http\Controllers\AdminUserController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}', [\App\Http\Controllers\AdminUserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [\App\Http\Controllers\AdminUserController::class, 'edit'])->middleware('admin')->name('users.edit');
+    Route::put('/users/{user}', [\App\Http\Controllers\AdminUserController::class, 'update'])->name('users.update');
+
+    Route::resource('/tags', \App\Http\Controllers\TagController::class);
 
 });
 
@@ -33,7 +39,7 @@ Route::middleware('auth', 'verified', 'admin')
     ->prefix('admin')
     ->group(function(){
 
-
+        Route::resource('/roles', \App\Http\Controllers\RoleController::class);
 });
 
 

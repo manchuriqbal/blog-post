@@ -11,7 +11,16 @@ class UpdateTagRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if ($this->name) {
+            $this->merge([
+                'slug' => (string) str($this->name)->slug(),
+            ]);
+        }
     }
 
     /**
@@ -21,8 +30,11 @@ class UpdateTagRequest extends FormRequest
      */
     public function rules(): array
     {
+        $tagId = $this->route('tag') ? $this->route('tag')->id : null;
+
         return [
-            //
+            'name' => ['required', 'string', 'max:250'],
+            'slug' => ['required', 'string', 'unique:tags,slug' . ($tagId ? ','.$tagId : ''),],
         ];
     }
 }

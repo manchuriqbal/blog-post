@@ -1,8 +1,8 @@
 @extends('admin.layouts.layout')
 
-@section('title', 'Admin Profile')
+@section('title', 'Profile Datils')
 
-@section('page_name', 'Admin Details')
+@section('page_name', 'Profile Datils')
 
 @section('content')
 <section class="no-padding-top">
@@ -12,7 +12,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center bg-primary text-white">
-                        <h3> {{ $user->first_name . ' ' . $user->last_name }} </h3>
+                        <h3> {{ $user->fullName() }} </h3>
                     </div>
                     <div class="card-body">
                         <!-- Profile Picture -->
@@ -33,17 +33,26 @@
                             <li class="list-group-item">
                                 <strong>Phone:</strong> {{ $user->phone ?? 'Not provided' }}
                             </li>
-                            <li class="list-group-item">
-                                <strong>Role:</strong> {{ $user->role->name }}
-                            </li>
+                            @if ($user->role->name == 'admin')
+                                <li class="text-success list-group-item">Admin</li>
+                            @elseif ($user->role->name == 'author')
+                                <li class="text-warning list-group-item">Author</li>
+                            @elseif ($user->role->name == 'user')
+                                <li class="text-info list-group-item">User</li>
+                            @endif
 
                         </ul>
                     </div>
                     <!-- Edit Button -->
-                    <div class="card-footer text-center">
-                        <a href=" {{route('admin.profile.edit')}} " class="btn btn-primary">
-                            <i class="fa fa-edit"></i> Edit Profile
+                    <div class="form-group text-center">
+                    @if (auth()->check() && auth()->user()->role_id == '1')
+                        <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary ">
+                            <i class="fa fa-edit"></i> Edit Role
                         </a>
+                    @endif
+                    <a href="{{ route('users.index') }}" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Back
+                    </a>
                     </div>
                 </div>
             </div>

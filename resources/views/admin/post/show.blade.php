@@ -119,7 +119,7 @@
                 <span class="post-categories" style="margin-left: 20px;">
                     <i class="fa fa-tags"></i> Categories:
                     @foreach ($post->categories as $category)
-                        <a href="{{route('category.show', $category->id)}}">{{$category->name}}</a>@if(!$loop->last), @endif
+                        <a href="{{route('categories.show', $category->id)}}">{{$category->name}}</a>@if(!$loop->last), @endif
                     @endforeach
                 </span>
                 @if ($post->status == 'published')

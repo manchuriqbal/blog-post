@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -48,9 +49,14 @@ class DashboardController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            $avatarPath = $request->file('avatar')->store('avatars', ['disk' => 'public']);
             $validated['avatar'] = $avatarPath;
         }
+
 
         $user->update($validated);
 

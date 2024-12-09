@@ -11,7 +11,16 @@ class StoreTagRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if ($this->name) {
+            $this->merge([
+                'slug' => (string) str($this->name)->slug(),
+            ]);
+        }
     }
 
     /**
@@ -22,7 +31,8 @@ class StoreTagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:250'],
+            'slug' => ['required', 'string', 'unique:tags,slug'],
         ];
     }
 }

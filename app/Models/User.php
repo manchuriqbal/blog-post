@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -63,8 +64,18 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Comment::class, 'comment_id');
     }
 
-    public function avatar(){
-        return asset($this->avatar ?? 'adminsite/img/avatar-6.jpg');
+    public function getAvatar(){
+        if ($this->avatar == null) {
+            return 'https://via.placeholder.com/100x100';
+        }
+
+
+        if (filter_var($this->avatar, FILTER_VALIDATE_URL)) {
+            return $this->avatar;
+        }
+
+        return Storage::url($this->avatar);
+
     }
 
     public function fullName(){
