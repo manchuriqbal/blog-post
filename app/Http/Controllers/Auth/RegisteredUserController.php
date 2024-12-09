@@ -29,12 +29,13 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $userId = $request->route('user') ? $request->route('user')->id : null;
         $request->validate([
             'first_name' => ['string', 'max:255'],
             'last_name' => ['string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'min:3', 'max:20', 'alpha_num', 'unique:users,username' . ($userId ? ',' . $userId : '')],
             'phone' => ['required', 'string', 'regex:/^\+?[0-9]{10,15}$/', 'max:15'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email' . ($userId ? ',' . $userId : '')],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
