@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
             Tag::factory()->count(40)->create();
             Post::factory()->count(50)->create();
             PostView::factory()->count(500)->create();
-            Comment::factory()->count(20)->create();
+            Comment::factory()->count(300)->create();
 
             $this->call([
                 CategoryPostSeeder::class,

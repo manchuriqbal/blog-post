@@ -17,13 +17,16 @@ class Comment extends Model
         'comment_id',
     ];
 
-    public function parent(){
+    public function children()
+    {
+        return $this->hasMany(Comment::class, 'comment_id');
+    }
+
+    public function parent()
+    {
         return $this->belongsTo(Comment::class, 'comment_id');
     }
 
-    public function children(){
-        return $this->hasMany(Comment::class, 'comment_id');
-    }
 
     public function post(){
         return $this->belongsTo(Post::class, 'post_id');

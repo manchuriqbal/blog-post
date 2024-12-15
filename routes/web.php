@@ -3,15 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('dashboard.index');
-
-
-// Route::get('/dashboard', function () {
-//     return view('admin.index');
-// })->middleware(['auth', 'verified', 'admin_auth'])->name('dashboard');
-
+// Admin Route
 Route::middleware('auth', 'verified', 'admin_auth')
     ->prefix('admin')
     ->group(function(){
@@ -26,7 +18,7 @@ Route::middleware('auth', 'verified', 'admin_auth')
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
 
-    Route::post('/posts/{comment?}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
+    Route::post('/posts/{post:slug}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
 
     Route::get('/users', [\App\Http\Controllers\AdminUserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [\App\Http\Controllers\AdminUserController::class, 'show'])->name('users.show');
@@ -46,8 +38,29 @@ Route::middleware('auth', 'verified', 'admin')
 });
 
 
+// User Site Routes
 
 
+Route::group(['as' => 'user.'], function () {
+    Route::get('/', [\App\Http\Controllers\Home\HomeController::class, 'index'])->name('home.index');
+
+    Route::get('/posts', [\App\Http\Controllers\Home\PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts/{post:slug}', [\App\Http\Controllers\Home\PostController::class, 'show'])->name('posts.show');
+    Route::post('/posts/{post:slug}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
+
+    Route::get('/categories', [\App\Http\Controllers\Home\CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/{category}', [\App\Http\Controllers\Home\CategoryController::class, 'show'])->name('categories.show');
+
+    Route::get('/profile', [\App\Http\Controllers\Home\ProfileController::class, 'index'])->name('profie.index');
+    Route::get('/profile/edit', [\App\Http\Controllers\Home\ProfileController::class, 'edit'])->name('profie.edit');
+    Route::patch('/profile/update', [\App\Http\Controllers\Home\ProfileController::class, 'update'])->name('profie.update');
+    Route::get('/profile/password-edit', [\App\Http\Controllers\Home\ProfileController::class, 'password_edit'])->name('profie.password_edit');
+    Route::patch('/profile/password-update', [\App\Http\Controllers\Home\ProfileController::class, 'password_update'])->name('profie.password_update');
+
+    Route::get('/authors', [\App\Http\Controllers\Home\AuthorController::class, 'index'])->name('author.index');
+    Route::get('/authors/{user}', [\App\Http\Controllers\Home\AuthorController::class, 'view'])->name('author.view');
+
+});
 
 
 

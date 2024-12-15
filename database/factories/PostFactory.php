@@ -26,6 +26,7 @@ class PostFactory extends Factory
             'content' => fake()->paragraph(),
             'thumbnail' => fake()->imageUrl(),
             'published_at' => fake()->dateTimeThisYear(),
+            'featured_post' => fake()->randomElement([true, false]),
             'status' => fake()->randomElement(['draft', 'published', 'archived']),
         ];
     }

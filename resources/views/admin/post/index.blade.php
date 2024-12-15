@@ -117,7 +117,7 @@
                         @endif
 
                         <td class="d-flex justify-content-center align-items-center">
-                            <a class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" href="{{route('posts.show', $post->id)}}">
+                            <a class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" href="{{route('posts.show', $post->slug)}}">
                                 <i class="fa fa-eye"></i> View
                             </a>
 

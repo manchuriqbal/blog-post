@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use App\Models\Post;
 
 class CommentController extends Controller
 {
@@ -27,20 +28,20 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request, Post $post)
     {
         // validated data
         $validationData = $request->validated();
 
+        $commentId = $validationData['comment_id'] ?? null;
+
         // create comment
-        $comment = Comment::create([
+        $comment = $post->comment()->create([
             'comment' => $validationData['comment'],
             'post_id' => $validationData['post_id'],
             'user_id' => auth()->id(),
-            'comment_id' => $validationData['comment_id'] ?? null,
+            'comment_id' => $commentId ?: null,
         ]);
-
-        // dd($validationData);
 
         // redirect page
         if ($comment) {

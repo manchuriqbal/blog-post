@@ -21,8 +21,10 @@ class Post extends Model
     public function postViews(){
         return $this->hasMany(\App\Models\PostView::class, 'post_id');
     }
-    public function comment(){
-        return $this->hasMany(\App\Models\Comment::class, 'post_id');
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function categories(){
@@ -59,4 +61,13 @@ class Post extends Model
             }
         });
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 }

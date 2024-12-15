@@ -64,8 +64,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.post.show')->with([
-            'post' => $post,
+        return view('admin.post.show', [
+            'post' => $post->load('comment.children.user'),
         ]);
     }
 

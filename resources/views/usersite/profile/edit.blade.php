@@ -1,22 +1,22 @@
-@extends('admin.layouts.layout')
+@extends('usersite.layouts.layout')
 
 @section('title', 'Edit Profile')
 
-@section('page_name', 'Edit Profile')
 
 @section('content')
-<section class="no-padding-top">
+<div class="no-padding-top col-md-8">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <!-- Edit Profile Card -->
-            <div class="col-md-6">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header bg-primary text-white text-center">
                         <h3>Edit Profile</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('user.profie.update')}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('patch')
 
                             <!-- Profile Picture -->
                             <div class="form-group text-center">
@@ -25,18 +25,18 @@
                                     <img src="{{ $user->getAvatar() }}"
                                          alt="Admin Avatar"
                                          class="img-fluid rounded-circle mb-2"
-                                         style="width: 120px; height: 120px;">
+                                         style="width: 200px; height: 200px;">
                                 </div>
                             </div>
 
-                           <!-- Chage Profile Picture -->
-                           <div class="form-group">
-                            <label for="formFile">Profile Picture</label>
-                            <input type="file" name="avatar" class="form-control" type="file" id="formFile">
-                            @error('avatar')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
+                            <!-- Change Profile Picture -->
+                            <div class="form-group">
+                                <label for="formFile">Profile Picture</label>
+                                <input type="file" name="avatar" class="form-control" type="file" id="formFile">
+                                @error('avatar')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
 
                             <!-- Username -->
                             <div class="form-group">
@@ -93,7 +93,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-save"></i> Save Changes
                                 </button>
-                                <a href="{{ route('profile.view') }}" class="btn btn-secondary">
+                                <a href="{{ route('user.profie.index') }}" class="btn btn-secondary">
                                     <i class="fa fa-arrow-left"></i> Cancel
                                 </a>
                             </div>
@@ -103,5 +103,6 @@
             </div>
         </div>
     </div>
-</section>
+</div>
+@include('usersite.partial.sidebar')
 @endsection

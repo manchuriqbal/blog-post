@@ -12,20 +12,20 @@
 <style>
     .comment-form-container {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: left;
+        align-items: left;
     }
 
 
     .comment-form .form-row {
         display: flex;
-        align-items: center;
+        align-items: left;
         gap: 10px;
     }
 
     .comment-form textarea {
         /* flex: 1; */
-        width: 500px;
+        width: 350px;
         height: 80px ;
         resize: none;
     }
@@ -38,6 +38,7 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        margin-top: 40px;
     }
 
     .comment-form button:hover {
@@ -71,6 +72,10 @@
     .reply-form button:hover {
         background-color: #0056b3;
     }
+    .border-reply {
+        border-style: solid;
+        border-color: rgb(34, 34, 34);
+    }
 
 
 </style>
@@ -83,11 +88,11 @@
     <main class="container">
         <!-- Submit Button -->
         <div class="form-group text-center mt-5 mb-5">
-            <a href="{{route('posts.edit', $post->id)}}" class="btn btn-info">
+            <a href="{{route('posts.edit', $post->slug)}}" class="btn btn-info">
                 <i class="fa fa-edit"></i> Edit
             </a>
              <!-- Delete Button -->
-            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this post?');">
+            <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this post?');">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">
@@ -156,16 +161,17 @@
                 <a href="#" class="btn btn-social"><i class="fab fa-facebook-f"></i> Facebook</a>
                 <a href="#" class="btn btn-social"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
             </div>
+        </div>
 
-            <!-- Replies Section -->
+            <!-- Comments Section -->
             <div class="comments-section mb-5">
-                <h2>Comments ({{ $post->comment->count() }})</h2>
+                <h2 class="text-center">Comments ({{ $post->comment->count() }})</h2>
 
                 @foreach ($post->comment as $comment)
                     <div class="comment ">
                         <!-- Parent Comment -->
                         @if (!$comment->comment_id)
-                        <div class="mb-4 mt-4">
+                        <div class="mb-4 mt-4 border-reply p-3">
                             <p>
                                 <i class="fas fa-user-circle" style="font-size: 20px; color: #333;"></i>
                                 <strong>{{ $comment->user->fullName() }}</strong>
@@ -195,7 +201,7 @@
                         <!-- Reply to Comment -->
                         @if (!$comment->comment_id)
                         <div class="reply-form">
-                            <form action="{{ route('comment.store', ['comment' => $comment->id ?? null]) }}" method="POST">
+                            <form action="{{ route('comment.store', ['post' => $post->slug]) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="post_id" value="{{$post->id}}">
                                 <input type="hidden" name="comment_id" value="{{$comment->id}}">
@@ -217,7 +223,7 @@
                     <h3>Comment to the Post</h3>
                     <div class="comment-form comment-form-container">
 
-                        <form action="{{route('comment.store')}}" method="POST">
+                        <form action="{{route('comment.store', ['post' => $post->slug])}}" method="POST">
                             @csrf
                             <input type="hidden" name="post_id" value="{{$post->id}}">
                             <div class="form-row">
@@ -225,13 +231,13 @@
                                 name="comment"
                                 placeholder="Write your comment here..."
                                 required></textarea>
-                                <button type="submit" class="btn btn-submit">Commnet</button>
+                                <button type="submit" class="btn btn-submit">Comment</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
 
-        </div>
     </main>
 @endsection

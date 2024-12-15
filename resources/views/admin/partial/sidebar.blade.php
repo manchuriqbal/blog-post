@@ -37,8 +37,8 @@
 
     </ul>
 
-    <div class="user-site-button">
-        <a href="{{route('dashboard.index')}}" class="btn btn-primary w-100">
+    <div class="user-site-button mb-5">
+        <a href="{{route('user.home.index')}}" class="btn btn-primary w-100">
             <i class="icon-user-1"></i> User Site
         </a>
     </div>
