@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        // dd(Storage::url($this->thumbnail));
         // Featured Post
         $featuredPost = Post::where('featured_post', true)
             ->where('status', 'published')

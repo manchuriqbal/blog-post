@@ -22,7 +22,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('usersite.partial.sidebar', function ($view) {
-            $recentpost = Post::orderBy('created_at', 'desc')->take(5)->get();
+            $recentpost = Post::orderBy('published_at', 'desc')->take(5)->get();
             $view->with('recentpost', $recentpost);
         });
     }

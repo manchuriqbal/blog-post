@@ -58,7 +58,15 @@
                                 <div class="form-group">
                                     <div class="mb-3">
                                         <label for="content" class="form-label">Post</label>
-                                        <textarea class="form-control" name="content" id="content" rows="4" placeholder="Write your post here..." required>{{ old('content', $post->content ?? '') }}</textarea>
+                                        <x-forms.tinymce-editor
+                                            class="form-control"
+                                            name="content"
+                                            id="content"
+                                            rows="4"
+                                            placeholder="Write your post here..."
+                                            required
+                                            :value="old('content', $post->content)"
+                                        />
                                     </div>
                                 </div>
 

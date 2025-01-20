@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <!-- Edit Profile Card -->
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <div class="card">
                         <div class="card-header bg-primary text-white text-center">
                             {{-- <h3>Edit Profile</h3> --}}
@@ -49,7 +49,8 @@
                                 <div class="form-group">
                                     <div class="mb-3">
                                         <label for="content" class="form-label">Post</label>
-                                        <textarea class="form-control" name="content" id="content" rows="3" placeholder="Write you post here.." required></textarea>
+                                        <x-forms.tinymce-editor class="form-control" name="content" id="content" rows="3" placeholder="Write you post here.." required/>
+                                        {{-- <x-forms.tinymce-editor/> --}}
                                     </div>
                                 </div>
 
